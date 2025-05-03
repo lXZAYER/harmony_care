@@ -1,0 +1,77 @@
+
+<?php session_start(); ?>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
+.quantity-selector {
+  display: flex;
+  align-items: center;
+}
+.qty-btn {
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style></head>
+<body>
+<header>
+<h1>Harmony Care</h1>
+<nav><a href="index.html">Home</a></nav>
+</header>
+<main>
+  
+<h2>Your Cart</h2>
+<form action="checkout_action.php" id="checkoutForm" method="POST">
+<table id="cartTable">
+<thead>
+<tr><th>Product</th><th>Quantity</th><th>Price</th><th>Total</th><th>Action</th></tr>
+</thead>
+<tbody>
+<?php
+          $cart = $_SESSION['cart'] ?? [];
+          $total = 0;
+          foreach ($cart as $index => $item):
+            $itemTotal = $item['price'] * $item['quantity'];
+            $total += $itemTotal;
+          ?&gt;
+            <tr>
+<td>
+<input name="products[&lt;?= $index ?&gt;][name]" type="hidden" value="&lt;?= $item['name'] ?&gt;"/>
+<?= htmlspecialchars($item['name']) ?>
+</td>
+<td><div class="quantity-selector"><button class="qty-btn" onclick="changeQuantity(&lt;?= $index ?&gt;, -1, event)" type="button">−</button><input min="1" name="products[&lt;?= $index ?&gt;][quantity]" onchange="document.getElementById('checkoutForm').submit();" type="number" value="&lt;?= $item['quantity'] ?&gt;"/><button class="qty-btn" onclick="changeQuantity(&lt;?= $index ?&gt;, 1, event)" type="button">+</button></div></td>
+<td>$<?= number_format($item['price'], 2) ?></td>
+<td>$<?= number_format($itemTotal, 2) ?></td>
+<td><button name="remove" type="submit" value="&lt;?= $index ?&gt;">Remove</button></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<p><strong>Total: $<?= number_format($total, 2) ?></strong></p>
+<button class="btn" type="submit">Buy</button>
+<button class="btn" name="clear" type="submit">Empty Cart</button>
+</form>
+</main>
+<footer>
+<p>© 2025 Harmony Care. All rights reserved.</p>
+</footer>
+<script>
+function changeQuantity(index, delta, event) {
+  event.preventDefault(); 
+  const input = document.querySelector(`input[name='products[${index}][quantity]']`);
+  let current = parseInt(input.value);
+  if (!isNaN(current)) {
+    current = Math.max(1, current + delta);
+    input.value = current;
+    document.getElementById('checkoutForm').submit();
+  }
+}
+</script></body>
+</html>

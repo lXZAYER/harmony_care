@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Add New Product</h2>
+
+      <form id="addProductForm" onsubmit="return validateAddProductForm();">
+        <input
+          id="productName"
+          name="productName"
+          placeholder="Product Name"
+          required
+          type="text"
+        />
+        <input
+          id="imageFile"
+          name="imageFile"
+          placeholder="Image File Name"
+          required
+          type="text"
+        />
+        <input
+          id="stock"
+          name="stock"
+          placeholder="Stock"
+          required
+          type="number"
+        />
+        <input
+          id="price"
+          name="price"
+          placeholder="Price"
+          required
+          step="0.01"
+          type="number"
+        />
+        <label>
+          <input
+            id="requiresPrescription"
+            name="requiresPrescription"
+            type="checkbox"
+          />
+          Requires Prescription
+        </label>
+        <button class="btn" type="submit">Add Product</button>
+      </form>
+
+      <div id="message"></div>
+
+      <h2>Modify/Delete Product</h2>
+
+      <form
+        id="editProductForm"
+        action="edit_product.php"
+        method="POST"
+        onsubmit="return validateEditProductForm();"
+      >
+        <input
+          id="editProductName"
+          name="product_name"
+          placeholder="Product Name"
+          required
+          type="text"
+        />
+        <input
+          id="editImageFile"
+          name="image_file"
+          placeholder="Image File Name"
+          required
+          type="text"
+        />
+        <input
+          id="editStock"
+          name="stock"
+          placeholder="Stock"
+          required
+          type="number"
+        />
+        <input
+          id="editPrice"
+          name="price"
+          placeholder="Price"
+          required
+          step="0.01"
+          type="number"
+        />
+        <label>
+          <input
+            id="editRequiresPrescription"
+            name="requires_prescription"
+            type="checkbox"
+          />
+          Requires Prescription
+        </label>
+        <button class="btn" type="submit">Update Product</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>© 2025 Harmony Care. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+      function validateAddProductForm() {
+        var productName = document.getElementById("productName");
+        var imageFile = document.getElementById("imageFile");
+        var stock = document.getElementById("stock");
+        var price = document.getElementById("price");
+
+        if (productName.value.trim() === "") {
+          alert("Please enter the Product Name.");
+          productName.focus();
+          return false;
+        }
+        if (imageFile.value.trim() === "") {
+          alert("Please enter the Image File Name.");
+          imageFile.focus();
+          return false;
+        }
+        if (
+          stock.value.trim() === "" ||
+          isNaN(stock.value) ||
+          parseInt(stock.value) < 0
+        ) {
+          alert("Please enter a valid Stock number.");
+          stock.focus();
+          return false;
+        }
+        if (
+          price.value.trim() === "" ||
+          isNaN(price.value) ||
+          parseFloat(price.value) < 0
+        ) {
+          alert("Please enter a valid Price.");
+          price.focus();
+          return false;
+        }
+        return true;
+      }
+
+      function validateEditProductForm() {
+        var productName = document.getElementById("editProductName");
+        var imageFile = document.getElementById("editImageFile");
+        var stock = document.getElementById("editStock");
+        var price = document.getElementById("editPrice");
+
+        if (productName.value.trim() === "") {
+          alert("Please enter the Product Name for editing.");
+          productName.focus();
+          return false;
+        }
+        if (imageFile.value.trim() === "") {
+          alert("Please enter the Image File Name for editing.");
+          imageFile.focus();
+          return false;
+        }
+        if (
+          stock.value.trim() === "" ||
+          isNaN(stock.value) ||
+          parseInt(stock.value) < 0
+        ) {
+          alert("Please enter a valid Stock number for editing.");
+          stock.focus();
+          return false;
+        }
+        if (
+          price.value.trim() === "" ||
+          isNaN(price.value) ||
+          parseFloat(price.value) < 0
+        ) {
+          alert("Please enter a valid Price for editing.");
+          price.focus();
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
+</html>

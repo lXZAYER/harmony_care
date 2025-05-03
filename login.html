@@ -1,0 +1,55 @@
+<!-- login.html - Shared Login Page for Users and Admins -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Harmony Care</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <h1>Harmony Care - Login</h1>
+  </header>
+
+  <main>
+    <form method="POST" action="login.php" class="login-form" id="loginForm">
+      <h2>Login</h2>
+      
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+    
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+    
+      <button class="btn" type="submit">Login</button>
+    
+      <p class="register-link">Don't have an account? 
+        <a href="register.html">Register here</a>
+      </p>
+    </form>
+    
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+    
+        if (username === '' || password === '') {
+          alert('Both username and password are required.');
+          event.preventDefault();
+          return;
+        }
+
+      });
+    </script>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="contact.html" class="btn">Contact Us</a>
+      <button onclick="window.open('error-help.html','Help','width=400,height=400')" class="footer-btn">Help</button>
+    </div>
+    <p>&copy; 2025 Harmony Care. All rights reserved.</p>
+  </footer>
+</body>
+</html>

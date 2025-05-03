@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Harmony Care</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    form .form-group {
+      margin-bottom: 1rem;
+    }
+    form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    form input {
+      width: 100%;
+      padding: 0.4rem;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>Harmony Care - Register</h1>
+  </header>
+
+  <main>
+    <form method="POST" action="register.php" class="register-form" id="registerForm">
+      <h2>Create Account</h2>
+    
+      <div class="form-group">
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" required />
+      </div>
+    
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+    
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. 0501234567" />
+      </div>
+    
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+    
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+    
+      <button class="btn" type="submit">Register</button>
+      <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+    </form>
+    
+    <script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      var fullName = document.getElementById('full_name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var username = document.getElementById('username').value.trim();
+      var password = document.getElementById('password').value.trim();
+    
+     
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      var phonePattern = /^05\d{8}$/; 
+    
+    
+      if (fullName.length < 3) {
+        alert('Full Name must be at least 3 characters.');
+        event.preventDefault();
+        return;
+      }
+    
+      if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        event.preventDefault();
+        return;
+      }
+    
+      if (phone && !phonePattern.test(phone)) {
+        alert('Please enter a valid Saudi phone number (e.g., 0501234567).');
+        event.preventDefault();
+        return;
+      }
+    
+      if (username.length < 4) {
+        alert('Username must be at least 4 characters.');
+        event.preventDefault();
+        return;
+      }
+    
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters.');
+        event.preventDefault();
+        return;
+      }
+    });
+    </script>
+    
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="contact.html" class="btn">Contact Us</a>
+      <button onclick="window.open('error-help.html','Help','width=400,height=400')" class="footer-btn">Help</button>
+    </div>
+    <p>&copy; 2025 Harmony Care. All rights reserved.</p>
+  </footer>
+</body>
+</html>

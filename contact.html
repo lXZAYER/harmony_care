@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Harmony Care</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">Harmony Care</div>
+      <nav>
+        <a href="index.php">Home</a>
+        <a href="checkout.php">Cart 🛒</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </header>
+
+    <main class="contact-container">
+      <div class="contact-info">
+        <h2>Contact Us</h2>
+        <p><strong>Address:</strong> 123 Wellness Street, Health City</p>
+        <p><strong>Email:</strong> contact@harmonycare.com</p>
+        <p><strong>Phone:</strong> +966-50-123-4567</p>
+        <iframe
+          src="https://www.google.com/maps?q=123+Wellness+Street,+Health+City&output=embed"
+          width="100%"
+          height="300"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+        <form action="save_message.php" method="POST" onsubmit="return validateForm();">
+          <label for="name">Your Name</label>
+          <input id="name" name="name" type="text" />
+
+          <label for="email">Your Email</label>
+          <input id="email" name="email" type="email" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5"></textarea>
+
+          <button class="btn" type="submit">Send Message</button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <button onclick="window.open('error-help.html','Help','width=400,height=400')" class="footer-btn">Help</button>
+      </div>
+      <p>© 2025 Harmony Care. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Validation -->
+    <script>
+      function validateForm() {
+        var name = document.getElementsByName("name")[0];
+        var email = document.getElementsByName("email")[0];
+        var message = document.getElementsByName("message")[0];
+
+        if (name.value.trim() === "") {
+          alert("Please fill out Name.");
+          name.focus();
+          return false;
+        }
+        if (email.value.trim() === "") {
+          alert("Please fill out Email.");
+          email.focus();
+          return false;
+        }
+        if (message.value.trim() === "") {
+          alert("Please fill out Message.");
+          message.focus();
+          return false;
+        }
+
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email.value)) {
+          alert("Please enter a valid email address.");
+          email.focus();
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>

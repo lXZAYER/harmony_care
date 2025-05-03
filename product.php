@@ -23,7 +23,7 @@ if (!$product) {
     exit();
 }
 ?>
-<!-- product.php - Product Detail Page -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

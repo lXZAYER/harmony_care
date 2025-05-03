@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     $show_login_popup = true;
 }
 
-// Connect to the database
 $conn = new mysqli("localhost", "root", "", "harmony_care");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

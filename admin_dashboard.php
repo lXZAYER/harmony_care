@@ -5,7 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Database connection
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -17,7 +17,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch products
+
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 $products = [];
@@ -46,7 +46,6 @@ if ($result && $result->num_rows > 0) {
 <main class="admin-container">
   <h2>Admin Dashboard 🛠️</h2>
 
-  <!-- Add New Product Section -->
   <section class="admin-add">
     <h3>Add New Product</h3>
     <form action="add_product.php" method="POST" onsubmit="return validateForm();">
@@ -93,7 +92,6 @@ function validateForm() {
 
   </section>
 
-  <!-- Product List Section -->
   <section class="admin-list">
     <h3>Current Products</h3>
     <table class="admin-table">
@@ -114,7 +112,7 @@ function validateForm() {
             <td>$<?= htmlspecialchars($product['price']) ?></td>
             <td><?= $product['prescription_required'] ? 'Yes' : 'No' ?></td>
             <td>
-              <!-- Edit Button -->
+              
               <button class="btn" onclick="openModal(
                 '<?= htmlspecialchars($product['name']) ?>',
                 <?= (int)$product['stock'] ?>,
@@ -122,7 +120,7 @@ function validateForm() {
                 <?= (int)$product['prescription_required'] ?>
               )">Edit</button>
 
-              <!-- Delete Button -->
+              
               <form action="delete_product.php" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');">
                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']) ?>">
                 <button type="submit" class="btn remove-btn">Delete</button>
@@ -139,7 +137,7 @@ function validateForm() {
   <p>&copy; 2025 Harmony Care. Admin Panel</p>
 </footer>
 
-<!-- Edit Modal -->
+
 <div id="editModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">&times;</span>

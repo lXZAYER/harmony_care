@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['cart'])) {
 
         $total_amount = 0;
 
-        // Step 1: Check and lock stock
+        
         foreach ($cart as $id => $item) {
             $stmt = $conn->prepare("SELECT stock FROM products WHERE id = :id FOR UPDATE");
             $stmt->execute(['id' => $id]);
@@ -28,7 +28,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['cart'])) {
             $total_amount += $item['price'] * $item['quantity'];
         }
 
-        // Step 2: Create order
+        
         $stmt = $conn->prepare("INSERT INTO orders (user_id, order_date, total_amount) VALUES (:user_id, NOW(), :total_amount)");
         $stmt->execute([
             'user_id' => $user_id,
@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['cart'])) {
         ]);
         $order_id = $conn->lastInsertId();
 
-        // Step 3: Insert items + update stock
+        
         foreach ($cart as $id => $item) {
             // Insert into order_items
             $stmt_item = $conn->prepare("INSERT INTO order_items (order_id, product_name, price, quantity) VALUES (:order_id, :product_name, :price, :quantity)");
@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['cart'])) {
                 'quantity' => $item['quantity']
             ]);
 
-            // Update stock
+            
             $stmt_update = $conn->prepare("UPDATE products SET stock = stock - :quantity WHERE id = :id");
             $stmt_update->execute([
                 'quantity' => $item['quantity'],
